@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pandas Data Lab — Analyze. Transform. Discover.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <div class="brand">
+      <span class="brand__mark">▦</span>
+      <span class="brand__text">PANDAS DATA LAB</span>
+    </div>
+
+    <nav class="main-nav" id="main-nav">
+      <button type="button" data-view="home" class="is-active">Home</button>
+      <button type="button" data-view="missions">Missions</button>
+      <button type="button" data-view="playground">Playground</button>
+      <button type="button" data-view="cheatsheet">Cheat Sheet</button>
+    </nav>
+
+    <div class="header-status">
+      <span class="header-progress">Progress: <strong data-progress-percent>0%</strong></span>
+      <span class="header-mission" id="header-current-mission">Mission: Welcome</span>
+      <button type="button" id="theme-toggle" aria-label="Toggle light and dark theme">☾</button>
+      <button type="button" id="nav-toggle" class="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HOME / DASHBOARD ============ -->
+  <section id="view-home" class="view">
+
+    <section class="hero">
+      <div class="hero__content">
+        <p class="hero__kicker">Pandas Data Lab</p>
+        <h1>Master Pandas Through Interactive Missions</h1>
+        <p class="hero__desc">Learn how to manipulate, clean, filter, and analyze data using Python Pandas —
+          one small, hands-on section at a time. No installs, no accounts, just the lab.</p>
+        <div class="hero__actions">
+          <button type="button" class="btn btn--accent btn--lg" id="start-learning-btn">START LEARNING</button>
+          <button type="button" class="btn btn--lg" id="view-missions-btn">VIEW MISSIONS</button>
+        </div>
+      </div>
+      <div class="hero__panel">
+        <div class="hero__panel-bar"><span class="dot dot--r"></span><span class="dot dot--y"></span><span class="dot dot--g"></span></div>
+        <pre class="hero__code">import pandas as pd
+
+df = pd.read_csv("students.csv")
+df.head()
+
+     Name  Age  Course  Score
+0    Arun   21  Python     85
+1     Anu   22  Pandas     91
+2   Rahul   20  Python     76</pre>
+      </div>
+    </section>
+
+    <section class="dashboard">
+      <h2 class="section-title">Your Progress</h2>
+      <div class="dashboard-grid">
+        <div class="stat-card">
+          <p class="stat-card__label">Overall Progress</p>
+          <p class="stat-card__value"><span data-progress-percent>0%</span></p>
+          <div class="progress-track"><div class="progress-fill" data-progress-bar style="width:0%"></div></div>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Missions Completed</p>
+          <p class="stat-card__value"><span data-missions-done>0</span> / <span data-missions-total>12</span></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">XP</p>
+          <p class="stat-card__value"><span data-xp-value>0</span> / <span data-xp-target>600</span></p>
+        </div>
+        <div class="stat-card">
+          <p class="stat-card__label">Quiz Accuracy</p>
+          <p class="stat-card__value"><span data-quiz-accuracy>0%</span></p>
+        </div>
+      </div>
+
+      <div class="badge-row" id="badge-row"></div>
+
+      <div class="continue-card">
+        <div>
+          <p class="continue-card__label">Continue Learning</p>
+          <p id="continue-label">Section 01 — Introduction to Pandas</p>
+        </div>
+        <button type="button" class="btn btn--accent" id="continue-btn">CONTINUE →</button>
+      </div>
+    </section>
+
+  </section>
+
+  <!-- ============ MISSIONS / MISSION MAP ============ -->
+  <section id="view-missions" class="view hidden">
+    <h2 class="section-title">Mission Map</h2>
+    <p class="section-sub">Twelve sections, one concept at a time. Nothing here is locked — jump to whichever mission you need.</p>
+    <div class="mission-map" id="mission-map"></div>
+  </section>
+
+  <!-- ============ LESSON (individual section) ============ -->
+  <section id="view-lesson" class="view hidden">
+    <div class="lesson-layout">
+      <aside class="lesson-sidebar" id="lesson-sidebar"></aside>
+      <div class="lesson-content" id="lesson-content"></div>
+    </div>
+  </section>
+
+  <!-- ============ PLAYGROUND ============ -->
+  <section id="view-playground" class="view hidden">
+    <h2 class="section-title">Pandas Simulator</h2>
+    <p class="section-sub">Python can't run inside a browser, so this playground recognizes a set of example Pandas commands
+      and simulates realistic output. Try: <code>df.head()</code>, <code>df.info()</code>, <code>df['Age']</code>,
+      <code>df[df['Age'] &gt; 22]</code>, <code>df.isnull().sum()</code>, <code>df.fillna(0)</code>,
+      <code>df.groupby('Category')['Sales'].sum()</code>.</p>
+    <div class="playground">
+      <div class="playground__panel">
+        <label for="play-input" class="playground__label">Code area</label>
+        <textarea id="play-input" class="playground__input" spellcheck="false" rows="6"></textarea>
+        <div class="btn-row">
+          <button type="button" class="btn btn--accent" id="play-run">RUN</button>
+          <button type="button" class="btn" id="play-reset">RESET</button>
+        </div>
+      </div>
+      <div class="playground__panel">
+        <p class="playground__label">Output area</p>
+        <pre class="playground__output" id="play-output">Output will appear here after you press RUN.</pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CHEAT SHEET ============ -->
+  <section id="view-cheatsheet" class="view hidden">
+    <h2 class="section-title">Pandas Cheat Sheet</h2>
+    <p class="section-sub">Click any command to see what it does, an example, and the expected output.</p>
+    <div class="cheatsheet-layout">
+      <div class="cheatsheet-grid" id="cheatsheet-grid"></div>
+      <div class="cheatsheet-detail" id="cheatsheet-detail">
+        <p class="empty-state">Select a command to see details.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <p>Pandas Data Lab — a self-paced classroom. Built with HTML, CSS, and vanilla JavaScript.</p>
+</footer>
+
+<div class="watermark" aria-hidden="true">
+  <img src="assets/cozmek-mark.png" alt="">
+  <span>COZMEK</span>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/progress.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/simulator.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
